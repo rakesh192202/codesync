@@ -182,6 +182,16 @@ This project was built to learn and demonstrate core real-time and backend conce
 
 ---
 
+## 👤 Author
+
+**Rakesh Kumar**
+
+- GitHub: [@rakesh192202](https://github.com/rakesh192202)
+- LinkedIn: [linkedin.com/in/rakesh-kumar-2a0834295](https://linkedin.com/in/rakesh-kumar-2a0834295)
+- Email: rakeshkrdss19@gmail.com
+
+---
+
 ## 📄 License
 
 This project is open source and available for learning purposes.
