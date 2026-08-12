@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CodeSync WebSocket Test</title>
+</head>
+
+<body>
+
+    <h2>CodeSync WebSocket Test</h2>
+
+    <label>Username:</label>
+    <input id="username" placeholder="Rakesh">
+
+    <br><br>
+
+    <label>Room Code:</label>
+    <input id="roomCode" placeholder="9597D4">
+
+    <br><br>
+
+    <label>Receiver:</label>
+    <input id="receiver" placeholder="User2">
+
+    <br><br>
+
+    <button onclick="connect()">Connect</button>
+    <button onclick="sendMessage()">Send Test Message</button>
+
+    <p id="status">Disconnected</p>
+
+    <script>
+
+        let socket;
+
+        function connect() {
+
+    const username =
+        document.getElementById("username").value;
+
+    const roomCode =
+        document.getElementById("roomCode").value;
+
+    console.log("Username:", username);
+    console.log("Room:", roomCode);
+
+    socket = new WebSocket(
+        `ws://localhost:8080/ws/signaling?username=${encodeURIComponent(username)}&roomCode=${encodeURIComponent(roomCode)}`
+    );
+
+    socket.onopen = function () {
+        console.log("WebSocket connected");
+        document.getElementById("status").innerText = "Connected";
+    };
+
+    socket.onmessage = function (event) {
+        console.log("Received:", event.data);
+    };
+
+    socket.onclose = function () {
+        console.log("WebSocket disconnected");
+        document.getElementById("status").innerText = "Disconnected";
+    };
+
+    socket.onerror = function (error) {
+        console.log("WebSocket error:", error);
+    };
+}
+
+        function sendMessage() {
+
+            const username =
+                document.getElementById("username").value;
+
+            const roomCode =
+                document.getElementById("roomCode").value;
+
+            const receiver =
+                document.getElementById("receiver").value;
+
+            const message = {
+
+                type: "OFFER",
+
+                sender: username,
+
+                receiver: receiver,
+
+                roomCode: roomCode,
+
+                data: {
+                    message: "Hello from CodeSync!"
+                }
+            };
+
+            socket.send(
+                JSON.stringify(message)
+            );
+
+            console.log(
+                "Message sent:",
+                message
+            );
+        }
+
+    </script>
+
+</body>
+
+</html>
